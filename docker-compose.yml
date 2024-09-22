@@ -1,0 +1,38 @@
+version: '3'
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: itech_landing_api
+    command: sh -c "python3 manage.py migrate --noinput && python3 manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    # volumes:
+    #   - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - itech      
+  db:
+    container_name: db
+    image: postgres:13.0-alpine
+    ports:
+      - 5555:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DATABASE}
+    networks:
+      - itech      
+volumes:
+  pg_data: 
+
+networks:
+  itech:
+    driver: bridge
