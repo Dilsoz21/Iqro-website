@@ -6,7 +6,7 @@ from project.models import Project, Category
 
 @register(Project)
 class ProjectTranslationOptions(TranslationOptions):
-    fields = ('title', 'description', 'client', 'location')
+    fields = ('title', 'description')
 
 
 @register(Category)

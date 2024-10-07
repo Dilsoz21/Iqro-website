@@ -7,7 +7,7 @@ from project.models import Project, Category, Updateimage
 class ProjectSerializers(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['id', 'image', 'title', 'description']
+        fields = '__all__'
 
 
 #project Details
